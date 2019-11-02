@@ -13,7 +13,6 @@ To get start using the project right away:
 ## What You're Getting
 ```bash
 ├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
 ├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
 ├── public
 │   └── index.html # DO NOT MODIFY.
