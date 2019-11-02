@@ -23,7 +23,7 @@ class AnsweredQuestions extends Component{
                     name = {name}/>
                 </Card.Title>
                 <Card.Text style={{flexDirection:'column'}}>
-                    <h5>Results:</h5>
+                    <span style={{fontSize: '1.5em'}}>Results:</span>
                     <div style={{color :optionOne.votes.includes(authedUser)? "red": "black"}}>
                         <p>Would you rather {optionOne.text}</p>
                         <ProgressBar 

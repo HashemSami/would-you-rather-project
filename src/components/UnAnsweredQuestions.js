@@ -24,7 +24,7 @@ class UnAnsweredQuestions extends Component{
                     <h4>{name} asks:</h4>
                 </Card.Title>
                 <Card.Text style={{flexDirection:'column'}}>
-                  <h5>Would you rather</h5>
+                  <span style={{fontSize: '1.5em'}}>Would you rather</span>
                   <p>...{optionOne.text}...</p>
                   <Link to={`/questions/${id}`}>
                     <Button variant="outline-success" >View Poll</Button>
