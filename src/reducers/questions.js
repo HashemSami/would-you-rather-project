@@ -1,6 +1,7 @@
 import {RECIEVE_DATA} from '../actions/shared';
 import {SAVE_ANSWER, NEW_QUESTION} from '../actions/questions';
 
+// a reducer for the questions part of the store
 export default function questions (state={}, action){
     switch(action.type){
         case RECIEVE_DATA:

@@ -21,6 +21,7 @@ class NewQuestion extends Component{
               optionTwoText, 
               author : this.props.authedUser, 
             },
+            // afunction to empty the text input when finished handling the submit
             () => {
                 this.setState(()=>({
                     optionOne : '',
@@ -29,7 +30,6 @@ class NewQuestion extends Component{
                 }))    
             }
         ))
-
     }
 
     handleOptionOne(e){
@@ -47,9 +47,12 @@ class NewQuestion extends Component{
 
     render(){
         const {optionOne, optionTwo, toHome} = this.state;
+
+        // redirect to home when new question submitted
         if(toHome){
             return <Redirect to={`/${this.props.authedUser}/home`}/>
-         }
+        }
+
         return(
             <Container style={{textAlign:'center'}}>
                 <Card style={{ width: '60rem'}}>

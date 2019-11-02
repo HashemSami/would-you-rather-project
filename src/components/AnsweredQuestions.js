@@ -16,7 +16,7 @@ class AnsweredQuestions extends Component{
             <div>
                 <Card style={{ width: '30rem', textAlign:'center'}}>
                 <Card.Title>
-                <h4>Asked by {name}:</h4>
+                    <h4>Asked by {name}:</h4>
                     <Avatar 
                     className = 'avatar'
                     avatar = {avatarURL}

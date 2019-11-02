@@ -16,6 +16,12 @@ class App extends Component{
             avatar: '',
         },
     }
+    constructor(props){
+        super(props);
+        if(this.props.nav){
+            this.props.dispatch(setNav(false));
+        }
+    }
 
     selectUser(id, name, avatarURL){
         this.setState(({
@@ -35,6 +41,9 @@ class App extends Component{
 
         return(
             <Container className="center">
+                <Row>
+                        <h1 style={{margin:'5rem auto'}}>Would you rather?!</h1>
+                </Row>
                 {avatar
                 ? <div >
                 <Avatar
@@ -52,13 +61,13 @@ class App extends Component{
 
                     <Dropdown.Menu>
                         {usersArray.map((user) =>(
-                            <div key={user.id} className='user' onClick={() => this.selectUser(user.id, user.name, user.avatarURL)}>
+                            <Dropdown.Item key={user.id} className='user' onClick={() => this.selectUser(user.id, user.name, user.avatarURL)}>
                                 <Avatar
                                 className='avatar'
                                 name={user.name}
                                 avatar={user.avatarURL}/>
                                 <h4>{user.id}</h4>
-                            </div>
+                            </Dropdown.Item>
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>

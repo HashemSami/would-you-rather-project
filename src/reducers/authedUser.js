@@ -1,6 +1,7 @@
 import {SET_AUTHEDUSER} from '../actions/authedUser';
 
-export default function authedUser(state='', action){
+// a reducer for the authedUser part of the store
+export default function authedUser(state = '', action){
     switch(action.type){
         case SET_AUTHEDUSER:
             return action.authedUser;

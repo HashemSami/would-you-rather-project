@@ -39,12 +39,20 @@ class QuestionPage extends Component{
     }
 
     render(){
+
+        // will redirect to the "not found" page when the question id doesn't match with the data.
+        if(this.props.noMatch){
+            return <Redirect to={`/404`}/>
+        }
+
         const {question, user} = this.props;
         const {optionOne, optionTwo} = question;
 
+        // will redirect to home when asnwered is submitted
         if(this.state.toHome){
             return <Redirect to={`/${this.props.authedUser}/home`}/>
         }
+
         return(
             <div>
                 <Container>
@@ -85,14 +93,21 @@ class QuestionPage extends Component{
 }
 
 function mapStateToProps({users, questions, authedUser}, props){
-    const {id} = props.match.params;
-    const question = questions[id];
-    const user = users[question.author];
-   
-    return{
-        question,
-        user,
-        authedUser,
+    
+    if(questions[props.match.params.id]){
+        // getting the id from URL
+        const {id} = props.match.params;
+        const question = questions[id];
+        const user = users[question.author];
+    
+        return{
+            question,
+            user,
+            authedUser,
+            noMatch: false,
+        }
+    }else {
+        return {noMatch: true}
     }
 }
 

@@ -2,26 +2,25 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {NavLink, Redirect} from 'react-router-dom';
 import Avatar from './Avatar';
-import {setNav} from '../actions/shared';
 import {Container, Row, Col} from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 
 class Nav extends Component{
     state = {
-        toHome: false
+        toApp: false
     }
 
+    // setting up the logout link
     logOut(){
         this.setState(({
-            toHome : true
+            toApp : true
         }))
-        console.log(this.state.toHome)
     }
     
     render(){
         const {user, authedUser} = this.props;
 
-        if(this.state.toHome){
+        // redirect to the main app when logging out
+        if(this.state.toApp){
             return <Redirect to={`/`}/>
         }
 
@@ -52,7 +51,7 @@ class Nav extends Component{
                                     </NavLink>
                                 </li>
                             </Col>
-                            <Col></Col>
+                            
                             </Row>
                         </ul>
                     </Col>
@@ -63,11 +62,7 @@ class Nav extends Component{
                 <Row>
                     <Col>
                         <li>
-                            <span>Hello, {user.name}</span>
-                        </li>
-                    </Col>
-                    <Col>
-                        <li>
+                            <span>{user.name}</span>
                             <Avatar
                             className='avatar'
                             name={user.name}
@@ -76,8 +71,8 @@ class Nav extends Component{
                     </Col>
                     <Col>
                         <li>
-                            <NavLink to={`/`} exact activeClassName='active' onClick={()=>this.props.dispatch(setNav(false))}>
-                                    Logout
+                            <NavLink to={`/`} exact activeClassName='active'>
+                                <button className='button'>Logout</button>
                             </NavLink>
                         </li>
                     </Col>
@@ -92,12 +87,11 @@ class Nav extends Component{
     
 }
 
-function mapStateToProps({users, nav, authedUser}){
+function mapStateToProps({users, authedUser}){
     const user = users[authedUser];
     return{
         user,
         authedUser,
-        nav,
     }
 }
 

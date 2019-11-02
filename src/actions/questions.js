@@ -1,4 +1,5 @@
 import {_saveQuestionAnswer, _saveQuestion} from '../utils/_DATA';
+import {showLoading, hideLoading} from 'react-redux-loading';
 
 export const SAVE_ANSWER = 'SAVE_ANSWER';
 export const NEW_QUESTION = 'NEW_QUESTION';
@@ -17,13 +18,12 @@ function newQuestion(question){
     }
 }
 
-
+// __________________________________________________
+// asynchronous data handling 
 export function handleSaveAnswer(answer){
     return (dispatch) => {
-        // dispatch(saveAnswer(answer))
         return _saveQuestionAnswer(answer)
-            .then((err) =>{
-                // add a save question function later with the catch
+            .then(() =>{
                 dispatch(saveAnswer(answer))
             }
         )
@@ -32,9 +32,13 @@ export function handleSaveAnswer(answer){
 
 export function handleNewQuestion(question, clearValues){
     return(dispatch) => {
+
+        dispatch(showLoading());
+
         return _saveQuestion(question).then((formatedQuestion) => {
             dispatch(newQuestion(formatedQuestion));
             clearValues();
+            dispatch(hideLoading());
         }).catch((err) => {
             alert("Sorry, Your question hasn't been saved, please try again.")
             console.log(err);

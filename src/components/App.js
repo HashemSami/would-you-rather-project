@@ -15,16 +15,17 @@ import QuestionPage from './QuestionPage';
 class App extends Component{
 
     componentDidMount(){
+        // loading data when app starts
         const {dispatch} = this.props;
         dispatch(handleInitialData());
     }
 
     render(){
-        const {users} = this.props;
+        const {questions} = this.props;
         return(
             <Router>
                 <LoadingBar/>
-                {users
+                {questions
                 ?
                 <Container >
                     <Row>
@@ -35,13 +36,14 @@ class App extends Component{
                     </Row>
                     <Row>
                         <Col>
+                        {/* switching on different routes for each URL */}
                             <Switch>
                                 <Route path='/' exact component={Login}/>
                                 <Route path='/:authedUser/home' component={Home}/>
                                 <Route path='/:authedUser/add' component={NewQuestion}/>
                                 <Route path='/:authedUser/leaderBoard' component={LeaderBoard}/>
-                                <Route path='/:id' component={QuestionPage}/>
-                                <Route component={NoMatch}/>
+                                <Route path='/questions/:id' component={QuestionPage}/>
+                                <Route path='/404' component={NoMatch}/>
                             </Switch>
                         </Col>
                     </Row>
@@ -52,9 +54,9 @@ class App extends Component{
     }
 };
 
-function mapStateToProps({users, authedUser, nav, loadingBar}){
+function mapStateToProps({questions, authedUser, nav, loadingBar}){
     return {
-        users,
+        questions,
         authedUser,
         nav,
         loadingBar,

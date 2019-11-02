@@ -11,6 +11,8 @@ function getInitialData (users, questions){
     }
 }
 
+// __________________________________________________
+// asynchronous data handling 
 export function handleInitialData(){
     return (dispatch) => {
         dispatch(showLoading());

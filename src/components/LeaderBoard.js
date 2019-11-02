@@ -1,20 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Container, Row, Col, Card, Button} from 'react-bootstrap';
+import {Container, Row, Col} from 'react-bootstrap';
 import Avatar from './Avatar';
+import {IoIosStar} from "react-icons/io";
 
 function LeaderBoard(props){
 
-    console.log(props)
     const {info} = props;
+
+    info[0]= {
+        ...info[0],
+        starColor: 'gold',
+    }
+    info[1]={
+        ...info[1],
+        starColor: 'silver',
+    }
+    info[2] = {
+        ...info[2],
+        starColor: '#cd7f32',
+    }
+
     return(
         <div>
                 {info.map((user)=>{
+
                     return(
                         <Container 
                         style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px'}} >
                             <Row>
-                            <Avatar 
+                                <Avatar 
                                 className = 'avatar'
                                 avatar = {user.userAvatar}
                                 name = {user.userName}/>
@@ -35,8 +50,10 @@ function LeaderBoard(props){
                                 <Col>
                                     <div style={{display: 'flex', flexDirection:'column', textAlign:'center'}}>
 
-                                        <span>Score</span>
+                                        <span>Score </span>
+                                        <span><IoIosStar color={user.starColor? user.starColor: ''}/></span>
                                         <span>{user.answeredQuestions + user.createdQuestions}</span>
+                                        
                                     </div>
                                 </Col>
                             </Row>
@@ -68,13 +85,3 @@ function mapStateToProps({users}){
 }
 
 export default connect(mapStateToProps)(LeaderBoard);
-
-
-
-// function mapStateToProps ({tweets}){
-//     return {tweetsId : Object.keys(tweets)
-//         .sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
-//     }
-// }
-
-// export default connect(mapStateToProps)(Dashboard);
