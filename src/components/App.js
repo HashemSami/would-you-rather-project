@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleInitialData} from '../actions/shared';
 import LoadingBar from 'react-redux-loading';
@@ -16,14 +16,16 @@ class App extends Component{
 
     componentDidMount(){
         // loading data when app starts
-        const {dispatch} = this.props;
-        dispatch(handleInitialData());
+        const {dispatch, authedUser} = this.props;
+        if(!authedUser){
+            dispatch(handleInitialData());
+        }
     }
 
     render(){
-        const {questions} = this.props;
+        const {questions, authedUser} = this.props;
         return(
-            <Router>
+            <div>
                 <LoadingBar/>
                 {questions
                 ?
@@ -39,17 +41,24 @@ class App extends Component{
                         {/* switching on different routes for each URL */}
                             <Switch>
                                 <Route path='/' exact component={Login}/>
-                                <Route path='/:authedUser/home' component={Home}/>
-                                <Route path='/:authedUser/add' component={NewQuestion}/>
-                                <Route path='/:authedUser/leaderBoard' component={LeaderBoard}/>
-                                <Route path='/questions/:id' component={QuestionPage}/>
-                                <Route path='/404' component={NoMatch}/>
+                                
+                                {authedUser
+                                ?
+                                <div>
+                                    <Route path='/:authedUser/home' component={Home}/>
+                                    <Route path='/404' component={NoMatch}/>
+                                    <Route path='/add' component={NewQuestion}/>
+                                    <Route path='/leaderBoard' component={LeaderBoard}/>
+                                    <Route path='/questions/:id' component={QuestionPage}/>
+                                </div>
+                                : <Redirect to={`/`}/>
+                                 }
                             </Switch>
                         </Col>
                     </Row>
                 </Container>
                 :null}
-            </Router>
+            </div>
         )
     }
 };
@@ -63,4 +72,4 @@ function mapStateToProps({questions, authedUser, nav, loadingBar}){
     }
 }
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

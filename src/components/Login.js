@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Avatar from './Avatar';
 import {Container, Row} from 'react-bootstrap';
 
-class App extends Component{
+class Login extends Component{
     state = {
         activeUser: {
             id: '',
@@ -31,8 +31,9 @@ class App extends Component{
                 avatar: avatarURL
             }
         }))
+        console.log(this.state.activeUser)
 
-            return this.props.dispatch(setAuthedUser(id));
+        return this.props.dispatch(setAuthedUser(id));
     }
 
     render(){
@@ -71,7 +72,7 @@ class App extends Component{
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
-                <Link to={`/${authedUser}/home`} onClick={()=>this.props.dispatch(setNav(true))}>
+                <Link to={`/${authedUser}/home`}>
                 <Button 
                 variant="secondary" 
                 disabled={!this.state.activeUser.id}
@@ -91,4 +92,4 @@ function mapStateToProps({users, nav, authedUser}){
     }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Login);

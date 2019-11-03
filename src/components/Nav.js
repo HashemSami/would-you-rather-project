@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {NavLink, Redirect} from 'react-router-dom';
 import Avatar from './Avatar';
 import {Container, Row, Col} from 'react-bootstrap';
+import {setAuthedUser} from '../actions/authedUser';
 
 class Nav extends Component{
     state = {
@@ -39,14 +40,14 @@ class Nav extends Component{
                             </Col>
                             <Col>
                                 <li>
-                                    <NavLink to={`/${authedUser}/add`} exact activeClassName='active'>
+                                    <NavLink to={`/add`} exact activeClassName='active'>
                                         New Question
                                     </NavLink>
                                 </li>
                             </Col>
                             <Col>
                                 <li>
-                                    <NavLink to={`/${authedUser}/leaderBoard`} exact activeClassName='active'>
+                                    <NavLink to={`/leaderBoard`} exact activeClassName='active'>
                                         Leader Board
                                     </NavLink>
                                 </li>
@@ -71,7 +72,7 @@ class Nav extends Component{
                     </Col>
                     <Col>
                         <li>
-                            <NavLink to={`/`} exact activeClassName='active'>
+                            <NavLink to={`/`} exact activeClassName='active' onClick={() => this.props.dispatch(setAuthedUser(''))}>
                                 <button className='button'>Logout</button>
                             </NavLink>
                         </li>

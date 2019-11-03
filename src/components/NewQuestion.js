@@ -21,7 +21,7 @@ class NewQuestion extends Component{
               optionTwoText, 
               author : this.props.authedUser, 
             },
-            // afunction to empty the text input when finished handling the submit
+            // a function to empty the text input when finished handling the submit
             () => {
                 this.setState(()=>({
                     optionOne : '',

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Avatar from './Avatar';
 import Button from 'react-bootstrap/Button';
+import NoMatch from './NoMatch';
 import {handleSaveAnswer} from '../actions/questions';
 import {Redirect} from 'react-router-dom';
 import {Container, Row, Col, Card} from 'react-bootstrap';
@@ -10,6 +11,7 @@ class QuestionPage extends Component{
     state ={
         answer:'',
         toHome: false,
+        noMatch: this.props.noMatch,
     }
 
     handleAnswer(e){
@@ -39,10 +41,10 @@ class QuestionPage extends Component{
     }
 
     render(){
-
+        console.log(this.props)
         // will redirect to the "not found" page when the question id doesn't match with the data.
-        if(this.props.noMatch){
-            return <Redirect to={`/404`}/>
+        if(this.state.noMatch){
+            return <NoMatch/>
         }
 
         const {question, user} = this.props;
@@ -93,6 +95,8 @@ class QuestionPage extends Component{
 }
 
 function mapStateToProps({users, questions, authedUser}, props){
+
+    console.log(props.match.params)
     
     if(questions[props.match.params.id]){
         // getting the id from URL
@@ -104,10 +108,13 @@ function mapStateToProps({users, questions, authedUser}, props){
             question,
             user,
             authedUser,
-            noMatch: false,
+            noMatch: authedUser? false:true,
         }
     }else {
-        return {noMatch: true}
+        return {
+            noMatch: true,
+            authedUser, 
+        }
     }
 }
 
