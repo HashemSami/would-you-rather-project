@@ -26,6 +26,7 @@ class App extends Component{
         const {questions, authedUser} = this.props;
         return(
             <div>
+                <Router>
                 <LoadingBar/>
                 {questions
                 ?
@@ -38,26 +39,22 @@ class App extends Component{
                     </Row>
                     <Row>
                         <Col>
-                        {/* switching on different routes for each URL */}
-                            <Switch>
-                                <Route path='/' exact component={Login}/>
-                                
-                                {authedUser
-                                ?
-                                <div>
-                                    <Route path='/:authedUser/home' component={Home}/>
-                                    <Route path='/404' component={NoMatch}/>
-                                    <Route path='/add' component={NewQuestion}/>
-                                    <Route path='/leaderBoard' component={LeaderBoard}/>
-                                    <Route path='/questions/:id' component={QuestionPage}/>
-                                </div>
-                                : <Redirect to={`/`}/>
-                                 }
-                            </Switch>
+                            <Route path='/'  exact component={Login}/>
+                            {<Login/>
+                            ?
+                            <div>
+                                <Route path='/:authedUser/home' component={Home}/>
+                                <Route path='/add' component={NewQuestion}/>
+                                <Route path='/leaderBoard' component={LeaderBoard}/>
+                                <Route path='/questions/:id' component={QuestionPage}/>
+                            </div>
+                            : <Login/>
+                            }
                         </Col>
                     </Row>
                 </Container>
                 :null}
+                </Router>
             </div>
         )
     }
@@ -72,4 +69,4 @@ function mapStateToProps({questions, authedUser, nav, loadingBar}){
     }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default connect(mapStateToProps)(App);

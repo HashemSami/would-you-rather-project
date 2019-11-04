@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setNav} from '../actions/shared';
-import {setAuthedUser} from '../actions/authedUser';
+import {handleSetAuthedUser} from '../actions/authedUser';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import Avatar from './Avatar';
@@ -33,7 +33,7 @@ class Login extends Component{
         }))
         console.log(this.state.activeUser)
 
-        return this.props.dispatch(setAuthedUser(id));
+        return this.props.dispatch(handleSetAuthedUser(id));
     }
 
     render(){

@@ -43,7 +43,7 @@ class QuestionPage extends Component{
     render(){
         console.log(this.props)
         // will redirect to the "not found" page when the question id doesn't match with the data.
-        if(this.state.noMatch){
+        if(this.props.question[this.props.id]){
             return <NoMatch/>
         }
 
@@ -95,27 +95,18 @@ class QuestionPage extends Component{
 }
 
 function mapStateToProps({users, questions, authedUser}, props){
-
-    console.log(props.match.params)
-    
-    if(questions[props.match.params.id]){
         // getting the id from URL
         const {id} = props.match.params;
         const question = questions[id];
         const user = users[question.author];
     
         return{
+            id,
             question,
             user,
             authedUser,
             noMatch: authedUser? false:true,
         }
-    }else {
-        return {
-            noMatch: true,
-            authedUser, 
-        }
-    }
 }
 
 export default connect(mapStateToProps)(QuestionPage);
