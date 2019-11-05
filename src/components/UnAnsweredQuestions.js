@@ -12,25 +12,21 @@ class UnAnsweredQuestions extends Component{
         const {name, avatarURL} =questionUser;
         const {id, optionOne} = question;
         return(
-            <div >
-            <Card style={{ width: '30rem', textAlign:'center'}}>
-                <Card.Title>
+            <div  style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px', textAlign:'center'}}>
                     <div>
                         <Avatar 
                         className = 'avatar'
                         avatar = {avatarURL}
                         name = {name}/>
+                        <h4>{name} asks:</h4>
                     </div>
-                    <h4>{name} asks:</h4>
-                </Card.Title>
-                <Card.Text style={{flexDirection:'column'}}>
+                <div style={{flexDirection:'column'}}>
                   <span style={{fontSize: '1.5em'}}>Would you rather</span>
                   <p>...{optionOne.text}...</p>
                   <Link to={`/questions/${id}`}>
                     <Button variant="outline-success" >View Poll</Button>
                   </Link>
-               </Card.Text>
-            </Card>
+                  </div>
             </div>
         )
     }

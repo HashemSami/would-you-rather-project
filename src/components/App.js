@@ -8,7 +8,7 @@ import NewQuestion from './NewQuestion';
 import Login from './Login';
 import Home from './Home';
 import Nav from './Nav';
-import NoMatch from './NoMatch';
+import Results from './Results';
 import {Container, Row, Col} from 'react-bootstrap';
 import QuestionPage from './QuestionPage';
 
@@ -23,10 +23,9 @@ class App extends Component{
     }
 
     render(){
-        const {questions, authedUser} = this.props;
+        const {questions} = this.props;
         return(
             <div>
-                <Router>
                 <LoadingBar/>
                 {questions
                 ?
@@ -39,14 +38,16 @@ class App extends Component{
                     </Row>
                     <Row>
                         <Col>
-                            <Route path='/'  exact component={Login}/>
+                        
                             {<Login/>
                             ?
                             <div>
+                                
                                 <Route path='/:authedUser/home' component={Home}/>
                                 <Route path='/add' component={NewQuestion}/>
                                 <Route path='/leaderBoard' component={LeaderBoard}/>
                                 <Route path='/questions/:id' component={QuestionPage}/>
+                                <Route path='/results/:id' component={Results}/>
                             </div>
                             : <Login/>
                             }
@@ -54,7 +55,6 @@ class App extends Component{
                     </Row>
                 </Container>
                 :null}
-                </Router>
             </div>
         )
     }

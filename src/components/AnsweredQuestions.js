@@ -1,47 +1,32 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Avatar from './Avatar';
-import {ProgressBar, Card} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import {Card} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
-class AnsweredQuestions extends Component{
+class UnAnsweredQuestions extends Component{
+    
     render(){
-        const {question, questionUser, authedUser} = this.props
-        const {name, avatarURL} = questionUser;
-        const {optionOne, optionTwo} = question;
-        const totalVotes = optionOne.votes.length + optionTwo.votes.length;
-        const persentageOne = Math.floor(optionOne.votes.length / totalVotes * 100);
-        const persentageTwo = Math.floor(optionTwo.votes.length / totalVotes * 100);
-
+        const {question, questionUser} = this.props
+        const {name, avatarURL} =questionUser;
+        const {id, optionOne} = question;
         return(
-            <div>
-                <Card style={{ width: '30rem', textAlign:'center'}}>
-                <Card.Title>
-                    <h4>Asked by {name}:</h4>
-                    <Avatar 
-                    className = 'avatar'
-                    avatar = {avatarURL}
-                    name = {name}/>
-                </Card.Title>
-                <Card.Text style={{flexDirection:'column'}}>
-                    <span style={{fontSize: '1.5em'}}>Results:</span>
-                    <div style={{color :optionOne.votes.includes(authedUser)? "red": "black"}}>
-                        <p>Would you rather {optionOne.text}</p>
-                        <ProgressBar 
-                        now={persentageOne} 
-                        label={`${persentageOne}%`} 
-                        style={{width: '50%', margin:'auto'}}/>
-                        <p>{optionOne.votes.length} out of {totalVotes} votes</p>
+            <div  style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px', textAlign:'center'}}>
+                    <div>
+                        <Avatar 
+                        className = 'avatar'
+                        avatar = {avatarURL}
+                        name = {name}/>
+                        <h4>{name} asks:</h4>
                     </div>
-                    <div style={{color : optionTwo.votes.includes(authedUser)? "red": "black"}}>
-                        <p>Would you rather {optionTwo.text}</p>
-                        <ProgressBar 
-                        now={persentageTwo} 
-                        label={`${persentageTwo}%`} 
-                        style={{width: '50%', margin:'auto'}}/>
-                        <p>{optionTwo.votes.length} out of {totalVotes} votes</p>
-                    </div>
-                </Card.Text>
-                </Card>
+                <div style={{flexDirection:'column'}}>
+                  <span style={{fontSize: '1.5em'}}>Would you rather</span>
+                  <p>...{optionOne.text}...</p>
+                  <Link to={`/results/${id}`}>
+                    <Button variant="outline-success" >View Poll</Button>
+                  </Link>
+                  </div>
             </div>
         )
     }
@@ -56,4 +41,4 @@ function mapStateToProps({users, questions, authedUser}, {id}){
     }
 }
 
-export default connect(mapStateToProps)(AnsweredQuestions);
+export default connect(mapStateToProps)(UnAnsweredQuestions);

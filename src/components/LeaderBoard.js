@@ -27,7 +27,8 @@ function LeaderBoard(props){
 
                     return(
                         <Container 
-                        style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px'}} >
+                        style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px'}} 
+                        key={user.id}>
                             <Row>
                                 <Avatar 
                                 className = 'avatar'
