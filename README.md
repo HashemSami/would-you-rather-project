@@ -30,7 +30,7 @@ To get start using the project right away:
     │   ├── Home.js # A Home page for the user that has the questions list and other functionalities. 
     │   ├── UnasweredQuestions.js # Component for displaying each unaswered question links for the users.
     │   ├── QuestionPage.js # This component will layout the unaswered question details to choos an answer.
-    │   ├── Nav.js # This component is for showing the result of the answered question.
+    │   ├── Results.js # This component is for showing the result of the answered question.
     │   ├── AsweredQuestions.js # This component will layout all questions answered with results.
     │   ├── NewQuestion.js # This component is for adding a new question to the database.
     │   ├── LeaderBoard.js # This component is for showing the top users that were active on the app.
