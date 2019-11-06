@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UnAnsweredQuestions from './UnAnsweredQuestions';
 import AnsweredQuestions from './AnsweredQuestions';
-import {Redirect, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {setNav} from '../actions/shared';
 import {Container, Row, Tab, Nav} from 'react-bootstrap';
 import { FaSmile } from "react-icons/fa";
@@ -19,14 +19,6 @@ class Home extends Component{
     
     render(){
         const {activeUser, answeredQuestions, unAnsweredQuestions, uthedFound} = this.props;
-
-        // this will redirect to the main app if the authedUser is undefined
-        // the uathed user will be undefined if you change the url manually and click the back
-        // button on the browser
-        // if(!uthedFound){
-        //     return <Redirect to={`/`}/>
-        // }
-
         const firstNameEnd = activeUser.name.indexOf(' ');
         const firstName = activeUser.name.slice(0, firstNameEnd);
 

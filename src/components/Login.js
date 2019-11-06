@@ -31,14 +31,16 @@ class Login extends Component{
                 avatar: avatarURL
             }
         }))
-        console.log(this.state.activeUser)
+        console.log(this.state.activeUser)       
+    }
 
-        return this.props.dispatch(handleSetAuthedUser(id));
+    setAuthedUser(e){
+        return this.props.dispatch(handleSetAuthedUser(this.state.activeUser.id));
     }
 
     render(){
         const {usersArray, authedUser} = this.props;
-        const {name, avatar} = this.state.activeUser;
+        const {id, name, avatar} = this.state.activeUser;
 
         return(
             <Container className="center">
@@ -72,7 +74,7 @@ class Login extends Component{
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
-                <Link to={`/${authedUser}/home`}>
+                <Link to={`/${id}/home`} onClick={(e)=>this.setAuthedUser(e)}>
                 <Button 
                 variant="secondary" 
                 disabled={!this.state.activeUser.id}

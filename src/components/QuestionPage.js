@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import NoMatch from './NoMatch';
 import {handleSaveAnswer} from '../actions/questions';
 import {Redirect} from 'react-router-dom';
-import {Container, Row, Col, Card} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 
 class QuestionPage extends Component{
     state ={

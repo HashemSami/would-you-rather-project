@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {handleNewQuestion} from '../actions/questions';
 import {Redirect} from 'react-router-dom';
-import {Container, Row, Col, Card, Button} from 'react-bootstrap';
+import {Row, Col, Button} from 'react-bootstrap';
 
 class NewQuestion extends Component{
     state = {

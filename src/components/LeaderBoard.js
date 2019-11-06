@@ -61,8 +61,6 @@ function LeaderBoard(props){
                         </Container>
                     )
                 })}
-                
-            
         </div>
     )
 }

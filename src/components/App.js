@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleInitialData} from '../actions/shared';
 import LoadingBar from 'react-redux-loading';
@@ -23,7 +23,7 @@ class App extends Component{
     }
 
     render(){
-        const {questions} = this.props;
+        const {questions, authedUser} = this.props;
         return(
             <div>
                 <LoadingBar/>
@@ -38,18 +38,17 @@ class App extends Component{
                     </Row>
                     <Row>
                         <Col>
-                        
-                            {<Login/>
+                            {!authedUser
                             ?
+                            <Login path='/' exact component={Login}/>
+                            :
                             <div>
-                                
                                 <Route path='/:authedUser/home' component={Home}/>
                                 <Route path='/add' component={NewQuestion}/>
                                 <Route path='/leaderBoard' component={LeaderBoard}/>
                                 <Route path='/questions/:id' component={QuestionPage}/>
                                 <Route path='/results/:id' component={Results}/>
                             </div>
-                            : <Login/>
                             }
                         </Col>
                     </Row>
