@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleInitialData} from '../actions/shared';
 import LoadingBar from 'react-redux-loading';
@@ -8,9 +8,9 @@ import NewQuestion from './NewQuestion';
 import Login from './Login';
 import Home from './Home';
 import Nav from './Nav';
-import Results from './Results';
 import {Container, Row, Col} from 'react-bootstrap';
 import QuestionPage from './QuestionPage';
+import NoMatch from './NoMatch';
 
 class App extends Component{
 
@@ -26,34 +26,34 @@ class App extends Component{
         const {questions, authedUser} = this.props;
         return(
             <div>
+                
+                <Router>
                 <LoadingBar/>
-                {questions
-                ?
-                <Container >
-                    <Row>
-                    {this.props.nav
-                    ? <Nav/>
-                    :null
-                    }
-                    </Row>
-                    <Row>
-                        <Col>
-                            {!authedUser
-                            ?
-                            <Login path='/' exact component={Login}/>
-                            :
-                            <div>
-                                <Route path='/:authedUser/home' component={Home}/>
-                                <Route path='/add' component={NewQuestion}/>
-                                <Route path='/leaderBoard' component={LeaderBoard}/>
-                                <Route path='/questions/:id' component={QuestionPage}/>
-                                <Route path='/results/:id' component={Results}/>
-                            </div>
-                            }
-                        </Col>
-                    </Row>
-                </Container>
-                :null}
+                    <Container >
+                        <Row>
+                        {this.props.nav
+                        ? <Nav/>
+                        :null
+                        }
+                        </Row>
+                        <Row>
+                            <Col>
+                                {!authedUser
+                                ?
+                                <Login path='/' exact component={Login}/>
+                                :
+                                <div>
+                                    <Route path='/home' component={Home}/>
+                                    <Route path='/add' component={NewQuestion}/>
+                                    <Route path='/leaderBoard' component={LeaderBoard}/>
+                                    <Route path='/questions/:id' component={QuestionPage}/>
+                                    <Route path='/error' component={NoMatch}/>
+                                </div>
+                                }
+                            </Col>
+                        </Row>
+                    </Container>
+                </Router>
             </div>
         )
     }

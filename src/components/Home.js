@@ -33,10 +33,10 @@ class Home extends Component{
                     :<Row style={{ flexDirection:'column', margin: '5% 0'}}>
                     <h3>Great, you've answered all questions for this day...</h3>
                     <h5>You can check your answers in the "Answered Questions" tab and see how other friends answered.</h5>
-                    <h5>or you can <Link to={`/add`}>make your own awesome questions</Link>.</h5>
+                    <h5>or you can <span className='link' style={{color:"blue"}} onClick={()=>this.props.history.push(`/add`)}>make your own awesome questions</span>.</h5>
                     </Row>
                 }
-                <Tab.Container defaultActiveKey="unAnsweredQuestions">
+                <Tab.Container defaultActiveKey={unAnsweredQuestions.length?"unAnsweredQuestions": "answeredQuestions"}>
                         <Nav fill variant="tabs" >
                             <Nav.Item>
                                 <Nav.Link eventKey="unAnsweredQuestions">Unanswered Questions</Nav.Link>

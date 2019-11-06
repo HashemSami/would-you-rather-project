@@ -24,7 +24,7 @@ class Results extends Component{
         }
         
         if(this.state.toHome){
-            return <Redirect to={`/${this.props.authedUser}/home`}/>
+            return <Redirect to={`/home`}/>
         }
 
         
@@ -34,6 +34,8 @@ class Results extends Component{
         const totalVotes = optionOne.votes.length + optionTwo.votes.length;
         const persentageOne = Math.floor(optionOne.votes.length / totalVotes * 100);
         const persentageTwo = Math.floor(optionTwo.votes.length / totalVotes * 100);
+        const optionOneMatch = optionOne.votes.includes(authedUser);
+        const optionTwoMatch = optionTwo.votes.includes(authedUser);
 
         return(
             <div style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px', textAlign:'center'}}>
@@ -46,7 +48,7 @@ class Results extends Component{
                 </div>
                 <div style={{flexDirection:'column'}}>
                     <span style={{fontSize: '1.5em'}}>Results:</span>
-                    <div style={{color :optionOne.votes.includes(authedUser)? "red": "black"}}>
+                    <div  style={optionOneMatch?{color : "red", backgroundColor: 'yellow'}:{}}>
                         <p>Would you rather {optionOne.text}</p>
                         <ProgressBar 
                         now={persentageOne} 
@@ -54,7 +56,7 @@ class Results extends Component{
                         style={{width: '50%', margin:'auto'}}/>
                         <p>{optionOne.votes.length} out of {totalVotes} votes</p>
                     </div>
-                    <div style={{color : optionTwo.votes.includes(authedUser)? "red": "black"}}>
+                    <div style={optionTwoMatch?{color : "red", backgroundColor: 'yellow'}:{}}>
                         <p>Would you rather {optionTwo.text}</p>
                         <ProgressBar 
                         now={persentageTwo} 
@@ -71,9 +73,8 @@ class Results extends Component{
     }
 }
 
-function mapStateToProps({users, questions, authedUser}, props){
-    if(questions[props.match.params.id]){
-        const {id} = props.match.params;
+function mapStateToProps({users, questions, authedUser}, {id}){
+    if(questions[id]){
         const question = questions[id];
         return{
             question,

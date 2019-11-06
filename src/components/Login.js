@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setNav} from '../actions/shared';
 import {handleSetAuthedUser} from '../actions/authedUser';
@@ -34,8 +34,9 @@ class Login extends Component{
         console.log(this.state.activeUser)       
     }
 
-    setAuthedUser(e){
-        return this.props.dispatch(handleSetAuthedUser(this.state.activeUser.id));
+    handleLogin(e, id){
+        this.props.dispatch(handleSetAuthedUser(this.state.activeUser.id));
+        this.props.history.push(`/home`);
     }
 
     render(){
@@ -74,12 +75,11 @@ class Login extends Component{
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
-                <Link to={`/${id}/home`} onClick={(e)=>this.setAuthedUser(e)}>
                 <Button 
                 variant="secondary" 
+                onClick={(e)=>this.handleLogin(e,id)}
                 disabled={!this.state.activeUser.id}
                 >Sign In</Button>
-                </Link>   
             </Container>                            
         )
         }
@@ -94,4 +94,4 @@ function mapStateToProps({users, nav, authedUser}){
     }
 }
 
-export default connect(mapStateToProps)(Login);
+export default withRouter(connect(mapStateToProps)(Login));

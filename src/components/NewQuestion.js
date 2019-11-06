@@ -50,7 +50,7 @@ class NewQuestion extends Component{
 
         // redirect to home when new question submitted
         if(toHome){
-            return <Redirect to={`/${this.props.authedUser}/home`}/>
+            return <Redirect to={`/home`}/>
         }
 
         return(

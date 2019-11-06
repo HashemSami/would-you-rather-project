@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {NavLink, Redirect} from 'react-router-dom';
+import {NavLink, withRouter, Redirect} from 'react-router-dom';
 import Avatar from './Avatar';
 import {Container, Row, Col} from 'react-bootstrap';
 import {logOut} from '../actions/authedUser';
@@ -33,7 +33,7 @@ class Nav extends Component{
                             <Row>
                             <Col>
                                 <li>
-                                    <NavLink to={`/${authedUser}/home`} exact activeClassName='active'>
+                                    <NavLink to={`/home`} exact activeClassName='active'>
                                         Home
                                     </NavLink>
                                 </li>
@@ -96,4 +96,4 @@ function mapStateToProps({users, authedUser}){
     }
 }
 
-export default connect(mapStateToProps)(Nav);
+export default withRouter(connect(mapStateToProps)(Nav));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 import Avatar from './Avatar';
 import {IoIosStar} from "react-icons/io";
 
@@ -22,46 +22,47 @@ function LeaderBoard(props){
     }
 
     return(
-        <div>
-                {info.map((user)=>{
+        <ul>
+            {info.map((user)=>{
 
-                    return(
-                        <Container 
-                        style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px'}} 
-                        key={user.id}>
+                return(
+                    <li 
+                    key={user.id}
+                    style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px'}} 
+                    >
+                        <Row>
+                            <Avatar 
+                            className = 'avatar'
+                            avatar = {user.userAvatar}
+                            name = {user.userName}/>
+
+                            <h4>{user.userName}</h4>
+                        </Row>
+                        <Row >
+                            <Col>
                             <Row>
-                                <Avatar 
-                                className = 'avatar'
-                                avatar = {user.userAvatar}
-                                name = {user.userName}/>
-
-                                <h4>{user.userName}</h4>
+                            <p>Answerd Questions</p>
+                            <span>{user.answeredQuestions}</span>
                             </Row>
-                            <Row >
-                                <Col>
-                                <Row>
-                                <p>Answerd Questions</p>
-                                <span>{user.answeredQuestions}</span>
-                                </Row>
-                                <Row>
-                                <p>Created Questions</p>
-                                <span>{user.createdQuestions}</span>
-                                </Row>
-                                </Col>
-                                <Col>
-                                    <div style={{display: 'flex', flexDirection:'column', textAlign:'center'}}>
-
-                                        <span>Score </span>
-                                        <span><IoIosStar color={user.starColor? user.starColor: ''}/></span>
-                                        <span>{user.answeredQuestions + user.createdQuestions}</span>
-                                        
-                                    </div>
-                                </Col>
+                            <Row>
+                            <p>Created Questions</p>
+                            <span>{user.createdQuestions}</span>
                             </Row>
-                        </Container>
-                    )
-                })}
-        </div>
+                            </Col>
+                            <Col>
+                                <div style={{display: 'flex', flexDirection:'column', textAlign:'center'}}>
+
+                                    <span>Score </span>
+                                    <span><IoIosStar color={user.starColor? user.starColor: ''}/></span>
+                                    <span>{user.answeredQuestions + user.createdQuestions}</span>
+                                    
+                                </div>
+                            </Col>
+                        </Row>
+                    </li>
+                )
+            })}
+        </ul>
     )
 }
 
@@ -71,6 +72,7 @@ function mapStateToProps({users}){
         info: usersId.map((id) => {
             const user = users[id];
             return {
+                id: user.id,
                 userName: user.name,
                 userAvatar: user.avatarURL,
                 answeredQuestions : Object.keys(user.answers).length,

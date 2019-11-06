@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Avatar from './Avatar';
 import Button from 'react-bootstrap/Button';
 import NoMatch from './NoMatch';
+import Results from './Results';
 import {handleSaveAnswer} from '../actions/questions';
 import {Redirect} from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
@@ -50,11 +51,15 @@ class QuestionPage extends Component{
 
         // will redirect to home when asnwered is submitted
         if(this.state.toHome){
-            return <Redirect to={`/${this.props.authedUser}/home`}/>
+            return <Redirect to={`/home`}/>
         }
 
+        console.log(user.answers[question.id])
         return(
             <div>
+                {answered?
+                <Results id={question.id}/>
+                :
                 <div style={{width: '40rem', border: '2px solid grey', padding:'2rem', margin: '2rem auto', borderRadius: '15px', textAlign:'center'}}>
                         <Row style={{justifyContent: 'flex-start'}}>
                             <Col sm={2}>
@@ -78,9 +83,10 @@ class QuestionPage extends Component{
                             </Col>
                         </Row>
                         <Row className="justify-content-md-center">
-                            <Button variant="secondary" onClick={(e) => this.handleAnswer(e)}>submit</Button>
+                            <Button variant="secondary" disabled={!this.state.answer} onClick={(e) => this.handleAnswer(e)}>submit</Button>
                         </Row>
                 </div>
+                }
             </div>
         )
     }
@@ -92,12 +98,14 @@ function mapStateToProps({users, questions, authedUser}, props){
             const {id} = props.match.params;
             const question = questions[id];
             const user = users[question.author];
+            const AUser = users[authedUser];
         
             return{
                 id,
                 question,
                 user,
                 authedUser,
+                answered: AUser.answers[id]? true:false,
                 noMatch:false
             }
         }else{
@@ -106,9 +114,6 @@ function mapStateToProps({users, questions, authedUser}, props){
             }
             
         }
-
-        
-
 }
 
 export default connect(mapStateToProps)(QuestionPage);

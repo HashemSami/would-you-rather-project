@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Avatar from './Avatar';
 import Button from 'react-bootstrap/Button';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 class UnAnsweredQuestions extends Component{
+
+    toQuestionPage(e, id){
+        this.props.history.push(`/questions/${id}`);
+    }
     
     render(){
         const {question, questionUser} = this.props
@@ -22,9 +26,7 @@ class UnAnsweredQuestions extends Component{
                 <div style={{flexDirection:'column'}}>
                   <span style={{fontSize: '1.5em'}}>Would you rather</span>
                   <p>...{optionOne.text}...</p>
-                  <Link to={`/questions/${id}`}>
-                    <Button variant="outline-success" >View Poll</Button>
-                  </Link>
+                    <Button variant="outline-success" onClick={(e)=>this.toQuestionPage(e,id)}>View Poll</Button>
                   </div>
             </div>
         )
@@ -40,4 +42,4 @@ function mapStateToProps({users, questions, authedUser}, {id}){
     }
 }
 
-export default connect(mapStateToProps)(UnAnsweredQuestions);
+export default withRouter(connect(mapStateToProps)(UnAnsweredQuestions));
