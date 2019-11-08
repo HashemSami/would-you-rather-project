@@ -10,10 +10,10 @@ import Home from './Home';
 import Nav from './Nav';
 import {Container, Row, Col} from 'react-bootstrap';
 import QuestionPage from './QuestionPage';
-import NoMatch from './NoMatch';
+
 
 class App extends Component{
-
+    
     componentDidMount(){
         // loading data when app starts
         const {dispatch, authedUser} = this.props;
@@ -23,10 +23,9 @@ class App extends Component{
     }
 
     render(){
-        const {questions, authedUser} = this.props;
+        const {authedUser} = this.props;
         return(
             <div>
-                
                 <Router>
                 <LoadingBar/>
                     <Container >
@@ -40,14 +39,14 @@ class App extends Component{
                             <Col>
                                 {!authedUser
                                 ?
-                                <Login path='/' exact component={Login}/>
+                                <Route path='/' exact component={Login}/>
                                 :
                                 <div>
-                                    <Route path='/home' component={Home}/>
-                                    <Route path='/add' component={NewQuestion}/>
-                                    <Route path='/leaderBoard' component={LeaderBoard}/>
-                                    <Route path='/questions/:id' component={QuestionPage}/>
-                                    <Route path='/error' component={NoMatch}/>
+                                    <Route path='/' exact component={Login}/>
+                                    <Route path='/home' exact component={Home}/>
+                                    <Route path='/add' exact component={NewQuestion}/>
+                                    <Route path='/leaderBoard' exact component={LeaderBoard}/>
+                                    <Route path='/questions/:id' exact component={QuestionPage}/>
                                 </div>
                                 }
                             </Col>

@@ -12,13 +12,14 @@ class Nav extends Component{
 
     // setting up the logout link
     logOut(){
+        this.props.dispatch(logOut());
         this.setState(({
             toApp : true
-        }))
+        }));
     }
     
     render(){
-        const {user, authedUser} = this.props;
+        const {user} = this.props;
 
         // redirect to the main app when logging out
         if(this.state.toApp){
@@ -72,9 +73,9 @@ class Nav extends Component{
                     </Col>
                     <Col>
                         <li>
-                            <NavLink to={`/`} exact activeClassName='active' onClick={() => this.props.dispatch(logOut())}>
-                                <button className='button'>Logout</button>
-                            </NavLink>
+                                <button 
+                                className='button'
+                                onClick={() => this.logOut()}>Logout</button>
                         </li>
                     </Col>
                 </Row>

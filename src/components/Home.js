@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UnAnsweredQuestions from './UnAnsweredQuestions';
 import AnsweredQuestions from './AnsweredQuestions';
-import {Link} from 'react-router-dom';
 import {setNav} from '../actions/shared';
 import {Container, Row, Tab, Nav} from 'react-bootstrap';
 import { FaSmile } from "react-icons/fa";
@@ -18,7 +17,7 @@ class Home extends Component{
     }
     
     render(){
-        const {activeUser, answeredQuestions, unAnsweredQuestions, uthedFound} = this.props;
+        const {activeUser, answeredQuestions, unAnsweredQuestions} = this.props;
         const firstNameEnd = activeUser.name.indexOf(' ');
         const firstName = activeUser.name.slice(0, firstNameEnd);
 
@@ -89,11 +88,6 @@ function mapStateToProps({users, questions, authedUser}){
             .filter((id) => !activeUser.answers[id])
             .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
             uthedFound: true,
-        }
-
-    }else{ 
-        return{
-            uthedFound: false
         }
     }
 

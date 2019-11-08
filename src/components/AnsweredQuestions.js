@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Avatar from './Avatar';
 import Button from 'react-bootstrap/Button';
-import {Link,withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class UnAnsweredQuestions extends Component{
 

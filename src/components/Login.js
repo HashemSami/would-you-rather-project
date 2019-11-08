@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setNav} from '../actions/shared';
 import {handleSetAuthedUser} from '../actions/authedUser';
@@ -31,18 +31,18 @@ class Login extends Component{
                 avatar: avatarURL
             }
         }))
-        console.log(this.state.activeUser)       
     }
 
     handleLogin(e, id){
-        this.props.dispatch(handleSetAuthedUser(this.state.activeUser.id));
+        this.props.dispatch(handleSetAuthedUser(id));
         this.props.history.push(`/home`);
     }
 
     render(){
-        const {usersArray, authedUser} = this.props;
+        const {usersArray} = this.props;
         const {id, name, avatar} = this.state.activeUser;
 
+        console.log(this.state)
         return(
             <Container className="center">
                 <Row>

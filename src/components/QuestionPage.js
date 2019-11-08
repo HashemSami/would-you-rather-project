@@ -15,10 +15,8 @@ class QuestionPage extends Component{
     }
 
     handleAnswer(e){
-        console.log(this.state.answer)
         const {question, authedUser} = this.props;
         const answer = this.state.answer === question.optionOne.text? "optionOne":"optionTwo"; 
-        console.log(authedUser)
         this.props.dispatch(handleSaveAnswer({
             authedUser: authedUser, 
             qid : question.id, 
@@ -54,7 +52,6 @@ class QuestionPage extends Component{
             return <Redirect to={`/home`}/>
         }
 
-        console.log(user.answers[question.id])
         return(
             <div>
                 {answered?
